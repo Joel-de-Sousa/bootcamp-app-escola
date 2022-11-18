@@ -1,0 +1,63 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Criar Nova Aula</title></head>
+
+</head>
+<body>
+<div align="center">
+    <h1>Criar Nova Aula</h1>
+    <br />
+    <form action="#" th:action="@{/saveAula}" th:object="${aula}"
+          method="post">
+
+        <table border="0" cellpadding="10">
+            <tr>
+                <td>Professor:</td>
+                <select  th:field="*{professor}">
+                    <option th:value=null>Selecione uma opção</option>
+                    <option th:each="professor : ${listProfessors}"
+                            th:value="${professor.cpf}"
+                            th:text="${professor.nome}"></option>
+                </select>
+            </tr>
+            <tr>
+                <td>Aluno:</td>
+                <select  th:field="*{aluno}">
+                    <option th:value=null>Selecione uma opção</option>
+                    <option th:each="aluno : ${listAlunos}"
+                            th:value="${aluno.matricula}"
+                            th:text="${aluno.nome}"></option>
+                </select>
+            </tr>
+            <tr>
+                <td>Data:</td>
+                <td><input type="text" th:field="*{data}"/></td>
+            </tr>
+            <tr>
+                <td>Media:</td>
+                <td><input type="text" th:field="*{media}"/></td>
+            </tr>
+            <tr>
+                <td>Duracao:</td>
+                <td><input type="text" th:field="*{duracao}"/></td>
+            </tr>
+            <tr>
+                <td>Valor:</td>
+                <td><input type="text" th:field="*{valor}"/></td>
+            </tr>
+            <tr>
+                <td>Resultado:</td>
+                <td><input type="text" th:field="*{resultado}"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit">Save</button> </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

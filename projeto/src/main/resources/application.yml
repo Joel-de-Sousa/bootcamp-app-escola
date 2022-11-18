@@ -1,0 +1,14 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: projeto
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/escola
+    username: root
+    password: app_employees
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: false
+    show-sql: false
