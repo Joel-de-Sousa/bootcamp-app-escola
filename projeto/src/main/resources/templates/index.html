@@ -1,29 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
-  <meta charset="ISO-8859-1">
-  <title>Login Form</title>
-  <link th:href="@{/css/style.css}" rel="stylesheet">
+  <title>mwhyte.dev - Welcome!</title>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="container">
-  <div class="wrapper">
-    <div class="title"><span>Login Form</span></div>
-    <form th:action="@{/login}" th:object="${loginForm}" method="post">
-      <p th:if="${error}" class="error">UserName & Password Incorrect</p>
-      <div class="row">
+<h1 align="center" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<div align="center">
+  <div>
+    <a href="/aluno">Listar Alunos</a>
+    <br/><br/>
+  </div>
 
-        <input type="text" name="username">
-      </div>
-      <div class="row">
+  <div>
+    <a href="/professor">Listar Professores</a>
+    <br/><br/>
+  </div>
 
-        <input type="password" name="password">
-      </div>
-      <div class="row button">
-        <input type="submit" value="Login">
-      </div>
+  <div>
+    <a href="/disciplina">Listar Disciplinas</a>
+    <br/><br/>
+  </div>
+
+  <div>
+    <a href="/aula">Listar Aulas</a>
+    <br/><br/>
+  </div>
+
+  <div>
+    <form th:action="@{/logout}" method="post">
+      <input type="submit" value="Sign Out"/>
     </form>
   </div>
+
 </div>
 </body>
 </html>

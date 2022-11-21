@@ -2,10 +2,12 @@ package bootcamp.projeto.REST;
 
 import bootcamp.projeto.dto.DisciplinaRestDTO;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
@@ -15,17 +17,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class DisciplinaRestRepository {
 
+    WebClient webClient = WebClient.builder()
+            .baseUrl("http://localhost:8082")
+            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+            .defaultUriVariables(Collections.singletonMap("url", "http://localhost:8082"))
+            .clientConnector(new ReactorClientHttpConnector(HttpClient.create(ConnectionProvider.newConnection())))
+            .build();
+
     public Optional<DisciplinaRestDTO> findDisciplinaByID(int id) {
-
-        WebClient webClient = WebClient.builder()
-                .baseUrl("http://localhost:8082")
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .defaultUriVariables(Collections.singletonMap("url", "http://localhost:8082"))
-                .clientConnector(new ReactorClientHttpConnector(HttpClient.create(ConnectionProvider.newConnection())))
-                .build();
-
 
         DisciplinaRestDTO disciplinaRestDTO;
         try {
@@ -57,15 +59,7 @@ public class DisciplinaRestRepository {
             return java.util.Optional.empty();
     }
 
-    public Optional<List<DisciplinaRestDTO>> findAllDisciplinas() {
-
-        WebClient webClient = WebClient.builder()
-                .baseUrl("http://localhost:8082")
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .defaultUriVariables(Collections.singletonMap("url", "http://localhost:8082"))
-                .clientConnector(new ReactorClientHttpConnector(HttpClient.create(ConnectionProvider.newConnection())))
-                .build();
-
+    /*public List<DisciplinaRestDTO> findAllDisciplinas() {
 
         List<DisciplinaRestDTO> listDisciplinas;
         try {
@@ -90,11 +84,24 @@ public class DisciplinaRestRepository {
 
             listDisciplinas = null;
         }
+            return listDisciplinas;
+    }*/
 
-        if (listDisciplinas != null)
-            return java.util.Optional.of(listDisciplinas);
-        else
-            return java.util.Optional.empty();
+    public List<DisciplinaRestDTO> findAllDisciplinas() {
+        Mono<List<DisciplinaRestDTO>> resposta;
+        List<DisciplinaRestDTO> novaLista;
+        try {
+            resposta = webClient.get().uri("/disciplinas").retrieve()
+                    .onStatus(HttpStatus::is4xxClientError, error -> {
+                        return Mono.empty();
+                    }).bodyToMono(new ParameterizedTypeReference<List<DisciplinaRestDTO>>() {
+                    });
+            novaLista = resposta.block();
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
+        return novaLista;
     }
 }
+
 

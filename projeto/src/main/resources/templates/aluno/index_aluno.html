@@ -19,6 +19,7 @@
             <th>Nome</th>
             <th>Sexo</th>
             <th>Idade</th>
+            <th>Escolaridade</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -29,6 +30,7 @@
             <td th:text="${aluno.nome}">Nome</td>
             <td th:text="${aluno.sexo}">Sexo</td>
             <td th:text="${aluno.idade}">Idade</td>
+            <td th:text="${aluno.escolaridade}">Escolaridade</td>
             <td>
                 <a th:href="@{'/aluno/edit_aluno/' + ${aluno.matricula}}">Edit</a>
                 &nbsp;&nbsp;&nbsp;
@@ -38,5 +40,7 @@
         </tbody>
     </table>
 </div>
+<br/><br/>
+<div align="center"><a href="/index">Voltar ao Índice</a></div>
 </body>
 </html>

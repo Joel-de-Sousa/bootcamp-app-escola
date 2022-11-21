@@ -1,5 +1,7 @@
 package bootcamp.projeto.service;
 
+import bootcamp.projeto.REST.DisciplinaRestRepository;
+import bootcamp.projeto.dto.DisciplinaRestDTO;
 import bootcamp.projeto.entities.Disciplina;
 import bootcamp.projeto.repository.DisciplinaRepository;
 
@@ -13,6 +15,8 @@ public class DisciplinaService {
 
     @Autowired
     private DisciplinaRepository repository;
+    @Autowired
+    private DisciplinaRestRepository restRepository;
 
     public List<Disciplina> listAll(){return repository.findAll();}
 
@@ -21,5 +25,7 @@ public class DisciplinaService {
     public void delete(Integer id){repository.deleteById(id);}
 
     public void save(Disciplina disciplina){repository.save(disciplina);}
+
+    public List<DisciplinaRestDTO> listAllDisciplinasMinisterio(){return restRepository.findAllDisciplinas();}
 }
 

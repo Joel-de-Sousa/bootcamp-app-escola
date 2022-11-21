@@ -1,12 +1,17 @@
 package bootcamp.projeto.controller;
 
+import bootcamp.projeto.dto.DisciplinaRestDTO;
 import bootcamp.projeto.entities.Disciplina;
 import bootcamp.projeto.service.DisciplinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import java.util.List;
 
@@ -33,6 +38,9 @@ public class DisciplinaController {
     public String showNewDisciplinaPage(Model model) {
         Disciplina disciplina = new Disciplina();
         model.addAttribute("disciplina", disciplina);
+
+        List<DisciplinaRestDTO> listDisciplinas = service.listAllDisciplinasMinisterio();
+        model.addAttribute("listDisciplinas", listDisciplinas);
 
         return "disciplina/new_disciplina";
     }
