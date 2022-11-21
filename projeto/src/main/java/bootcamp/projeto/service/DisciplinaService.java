@@ -18,14 +18,27 @@ public class DisciplinaService {
     @Autowired
     private DisciplinaRestRepository restRepository;
 
-    public List<Disciplina> listAll(){return repository.findAll();}
+    public List<Disciplina> listAll() {
+        return repository.findAll();
+    }
 
-    public Disciplina findById(Integer id){return repository.findById(id).get();}
+    public Disciplina findById(Integer id) {
+        return repository.findById(id).get();
+    }
 
-    public void delete(Integer id){repository.deleteById(id);}
+    public void delete(Integer id) {
+        repository.deleteById(id);
+    }
 
-    public void save(Disciplina disciplina){repository.save(disciplina);}
+    public void save(Disciplina disciplina) throws Exception {
+        if (!repository.existsByTitulo(disciplina.getTitulo())) {
+            repository.save(disciplina);
+        } else
+            throw new Exception("A disciplina já se encontra ativa");
+    }
 
-    public List<DisciplinaRestDTO> listAllDisciplinasMinisterio(){return restRepository.findAllDisciplinas();}
+    public List<DisciplinaRestDTO> listAllDisciplinasMinisterio() {
+        return restRepository.findAllDisciplinas();
+    }
 }
 

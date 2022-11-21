@@ -6,6 +6,7 @@ import bootcamp.projeto.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +44,9 @@ public class AlunoController {
     }
 
     @RequestMapping(value = "/saveAluno", method = RequestMethod.POST)
-    public String saveAluno(@Valid @ModelAttribute("aluno") Aluno aluno) {
+    public String saveAluno(@ModelAttribute("aluno") @Valid Aluno aluno, BindingResult result) {
+
+        if(result.hasErrors()){return "aluno/new_aluno";}
 
         EscolaridadeRestDTO verifica = service.verificaEscolaridade(aluno.getIdade());
         if (verifica.getAno() == aluno.getEscolaridade()) {

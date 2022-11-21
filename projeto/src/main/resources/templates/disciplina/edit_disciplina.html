@@ -15,20 +15,26 @@
           method="post">
 
         <table border="0" cellpadding="10">
-            <tr>
+            <!--<tr>
                 <td>ID:</td>
                 <td>
                     <input type="text" th:field="*{id}" readonly="readonly"/>
                 </td>
-            </tr>
+            </tr>-->
             <tr>
                 <td>Titulo:</td>
-                <td><input type="text" th:field="*{titulo}"/></td>
+                <td><select  th:field="*{titulo}">
+                    <option th:value=null>Selecione uma opção</option>
+                    <option th:each="disciplina : ${listDisciplinas}"
+                            th:value="${disciplina.titulo}"
+                            th:text="${disciplina.titulo}"></option>
+                </select>
+                </td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td>Area:</td>
                 <td><input type="text" th:field="*{area}"/></td>
-            </tr>
+            </tr>-->
             <tr>
                 <td colspan="2">
                     <button type="submit">Save</button>

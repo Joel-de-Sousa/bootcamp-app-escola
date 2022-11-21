@@ -19,20 +19,23 @@ public class Aluno {
 
     @Id
     @Column(nullable = false, length = 8, columnDefinition = "CHAR")
+    @Size(min = 8,max = 8, message = "Matricula deve conter 8 caracteres")
     private String matricula;
 
     @Column(name = "cpf", nullable = false, unique = true, columnDefinition = "CHAR", length = 8)
-    @Pattern(regexp = "[0-9]", message = "O NIF só pode conter números")
+    @Size(min = 8,max = 8, message = "Formato de NIF inválido")
     private String cpf;
 
-    @NotBlank(message = "O nome é obrigatório!")
+    @NotEmpty(message = "O nome é obrigatório!")
+    @Size(min = 5, max = 30, message = "O nome deve conter pelo menos 5 caracteres")
     private String nome;
 
     @Column(nullable = false, columnDefinition = "CHAR")
+    @NotBlank(message = "Campo obrigatório")
     private String sexo;
 
-    @Min(6)
-    @Max(16)
+    @Min(value = 6, message = "Idade mínima de inscrição são 6 anos")
+    @Max(value = 17, message = "Idade máxima de inscrição sao 17 anos")
     private Integer idade;
 
 

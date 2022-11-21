@@ -11,9 +11,11 @@ import bootcamp.projeto.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -26,6 +28,8 @@ public class AulaController {
     private ProfessorService professorService;
     @Autowired
     private AlunoService alunoService;
+    @Autowired
+    private DisciplinaService disciplinaService;
 
     public AulaController(AulaService service) {
         this.service = service;
@@ -54,7 +58,10 @@ public class AulaController {
     }
 
     @RequestMapping(value = "/saveAula", method = RequestMethod.POST)
-    public String saveAula(@ModelAttribute(name = "aula") Aula aula) {
+    public String saveAula(@ModelAttribute(name = "aula") @Valid Aula aula, BindingResult result) {
+
+        if(result.hasErrors()){return "aula/new_aula";}
+
         service.save(aula);
 
         return "redirect:/aula";
@@ -65,6 +72,12 @@ public class AulaController {
         ModelAndView mav = new ModelAndView("aula/edit_aula");
         Aula aula = service.findById(id);
         mav.addObject("aula", aula);
+
+        List<Aluno> listAlunos = alunoService.listAll();
+        mav.addObject("listAlunos", listAlunos);
+
+        List<Professor> listProfessor = professorService.listAll();
+        mav.addObject("listProfessors", listProfessor);
 
         return mav;
     }

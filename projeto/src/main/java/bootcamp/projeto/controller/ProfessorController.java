@@ -7,9 +7,11 @@ import bootcamp.projeto.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -45,7 +47,10 @@ public class ProfessorController {
     }
 
     @RequestMapping(value = "/saveProfessor", method = RequestMethod.POST)
-    public String saveProfessor(@ModelAttribute("professor") Professor professor) {
+    public String saveProfessor(@ModelAttribute("professor") @Valid Professor professor, BindingResult result) {
+
+        if(result.hasErrors()){return "professor/new_professor";}
+
         service.save(professor);
 
         return "redirect:/professor";
@@ -56,6 +61,9 @@ public class ProfessorController {
         ModelAndView mav = new ModelAndView("professor/edit_professor");
         Professor professor = service.findById(cpf);
         mav.addObject("professor", professor);
+
+        List<Disciplina> listDisciplinas = disciplinaService.listAll();
+        mav.addObject("listDisciplinas", listDisciplinas);
         
         return mav;
     }

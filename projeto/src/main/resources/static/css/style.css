@@ -204,3 +204,11 @@ p {
 .text--center {
   text-align: center;
 }
+
+
+/* error */
+<style>
+    .error {
+        color: red;
+    }
+</style>

@@ -19,15 +19,20 @@
                 <td>Matricula:</td>
                 <td>
                     <input type="text" th:field="*{matricula}"/>
+                    <p th:if="${#fields.hasErrors('matricula')}" th:errorclass="error" th:errors="*{matricula}" />
                 </td>
             </tr>
             <tr>
                 <td>Cpf:</td>
-                <td><input type="text" th:field="*{cpf}" /></td>
+                <td><input type="text" th:field="*{cpf}" />
+                    <p th:if="${#fields.hasErrors('cpf')}" th:errorclass="error" th:errors="*{cpf}" />
+                </td>
             </tr>
             <tr>
                 <td>Nome:</td>
-                <td><input type="text" th:field="*{nome}" /></td>
+                <td><input type="text" th:field="*{nome}" />
+                    <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}" />
+                </td>
             </tr>
             <tr>
                 <td>Sexo:</td>
@@ -36,17 +41,18 @@
                     <option th:value="'M'" th:text="Masculino"></option>
                     <option th:value="'F'" th:text="Feminino"></option>
                     </select>
+                    <p th:if="${#fields.hasErrors('sexo')}" th:errorclass="error" th:errors="*{sexo}" />
                 </td>
             </td>
             </tr>
             <tr>
                 <td>Idade:</td>
-                <td><input type="text" th:field="*{idade}" /></td>
+                <td><input type="text" th:field="*{idade}" />
+                    <p th:if="${#fields.hasErrors('idade')}" th:errorclass="error" th:errors="*{idade}" /></td>
             </tr>
             <tr>
                 <td>Escolaridade:</td>
                 <td><select  th:field="*{escolaridade}">
-                    <!--<option th:value=null>Selecione uma opção</option>-->
                     <option th:each="i : ${#numbers.sequence(1,12)}"
                             th:value="${i}"
                             th:text="${i}"></option>

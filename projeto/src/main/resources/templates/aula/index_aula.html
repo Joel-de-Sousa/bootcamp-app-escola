@@ -18,10 +18,8 @@
             <th>Professor</th>
             <th>Aluno</th>
             <th>Data</th>
-            <th>Media</th>
             <th>Duracao</th>
             <th>Valor</th>
-            <th>Resultado</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -31,10 +29,8 @@
             <td th:text="${aula.professor.nome}">Professor</td>
             <td th:text="${aula.aluno.nome}">Aluno</td>
             <td th:text="${aula.data}">Data</td>
-            <td th:text="${aula.media}">Media</td>
             <td th:text="${aula.duracao}">Duracao</td>
             <td th:text="${aula.valor}">Valor</td>
-            <td th:text="${aula.resultado}">Resultado</td>
 
             <td>
                 <a th:href="@{'/aula/edit_aula/' + ${aula.id}}">Edit</a>

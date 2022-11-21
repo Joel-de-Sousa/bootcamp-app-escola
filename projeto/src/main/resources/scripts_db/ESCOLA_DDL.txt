@@ -36,10 +36,8 @@
     professor_cpf CHAR(14),
     aluno_matricula CHAR(8),
     data Date,
-    media DECIMAL(4,2),
     duracao DECIMAL(3,1),
     valor DECIMAL(9,2),
-    resultado VARCHAR(15),
     FOREIGN KEY(professor_cpf) REFERENCES PROFESSOR (cpf),
     FOREIGN KEY(aluno_matricula) REFERENCES ALUNO (matricula)
     );

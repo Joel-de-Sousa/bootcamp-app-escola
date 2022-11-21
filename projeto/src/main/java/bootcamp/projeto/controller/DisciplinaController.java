@@ -46,7 +46,14 @@ public class DisciplinaController {
     }
 
     @RequestMapping(value = "/saveDisciplina",method = RequestMethod.POST)
-    public String saveDisciplina(@ModelAttribute(name = "disciplina") Disciplina disciplina) {
+    public String saveDisciplina(@ModelAttribute(name = "disciplina") Disciplina disciplina) throws Exception {
+        List<DisciplinaRestDTO> listDisciplinas = service.listAllDisciplinasMinisterio();
+        for (DisciplinaRestDTO i:listDisciplinas) {
+            if(disciplina.getTitulo().equals(i.getTitulo())){
+                disciplina.setArea(i.getArea());
+            }
+
+        }
         service.save(disciplina);
 
         return "redirect:/disciplina";
@@ -57,6 +64,9 @@ public class DisciplinaController {
         ModelAndView mav = new ModelAndView("disciplina/edit_disciplina");
         Disciplina disciplina = service.findById(id);
         mav.addObject("disciplina", disciplina);
+
+        List<DisciplinaRestDTO> listDisciplinas = service.listAllDisciplinasMinisterio();
+        mav.addObject("listDisciplinas", listDisciplinas);
 
         return mav;
     }

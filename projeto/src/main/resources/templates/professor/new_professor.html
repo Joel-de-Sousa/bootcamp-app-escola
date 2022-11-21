@@ -19,11 +19,13 @@
                 <td>CPF:</td>
                 <td>
                     <input type="text" th:field="*{cpf}"/>
+                    <p th:if="${#fields.hasErrors('cpf')}" th:errorclass="error" th:errors="*{cpf}" />
                 </td>
             </tr>
             <tr>
                 <td>Nome:</td>
-                <td><input type="text" th:field="*{nome}"/></td>
+                <td><input type="text" th:field="*{nome}"/>
+                    <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}" /></td>
             </tr>
             <tr>
                 <td>Sexo:</td>
@@ -32,14 +34,17 @@
                     <option th:value="'M'" th:text="Masculino"></option>
                     <option th:value="'F'" th:text="Feminino"></option>
                     </select>
+                    <p th:if="${#fields.hasErrors('sexo')}" th:errorclass="error" th:errors="*{sexo}" />
                 </td>
             <tr>
                 <td>Idade:</td>
-                <td><input type="text" th:field="*{idade}"/></td>
+                <td><input type="text" th:field="*{idade}"/>
+                    <p th:if="${#fields.hasErrors('idade')}" th:errorclass="error" th:errors="*{idade}" /></td>
             </tr>
             <tr>
                 <td>Tempo de Ensino:</td>
-                <td><input type="text" th:field="*{tempoEnsino}"/></td>
+                <td><input type="text" th:field="*{tempoEnsino}"/>
+                    <p th:if="${#fields.hasErrors('tempoEnsino')}" th:errorclass="error" th:errors="*{tempoEnsino}" /></td>
             </tr>
             <tr>
                 <td>Disciplina:</td>
@@ -49,14 +54,18 @@
                             th:value="${disciplina.id}"
                             th:text="${disciplina.titulo}"></option>
                 </select>
+                <p th:if="${#fields.hasErrors('disciplina')}" th:errorclass="error" th:errors="*{disciplina}" />
                 </td>
             </tr>
             <tr>
                 <td>Salario:</td>
-                <td><input type="text" th:field="*{salario}"/></td>
+                <td><input type="text" th:field="*{salario}"/>
+                    <p th:if="${#fields.hasErrors('salario')}" th:errorclass="error" th:errors="*{salario}" /></td>
             </tr>
             <tr>
-                <td colspan="2"><button type="submit">Save</button> </td>
+                <td colspan="2">
+                    <button type="submit">Save</button>
+                </td>
             </tr>
         </table>
     </form>

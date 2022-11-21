@@ -30,7 +30,10 @@ public class AlunoService{
         return false;}
     }
 
-    public void save(Aluno aluno){repository.save(aluno);}
+    public void save(Aluno aluno){
+
+        repository.save(aluno);
+    }
 
     public List<EscolaridadeRestDTO> listAllAnosDisponiveisParaInscricao(int idade){
         return restRepository.listAllAnosDisponiveisParaInscricao(idade);}
